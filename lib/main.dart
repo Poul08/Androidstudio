@@ -42,12 +42,18 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: Column(
                             children: [
-                              ClipOval(
-                                child: Image.asset(
-                                  user['image']!,
-                                  height: 35,
-                                  width: 35,
-                                  fit: BoxFit.cover,
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.circular(50), // Circular border
+                                ),
+                                child: ClipOval(
+                                  child: Image.asset(
+                                    user['image']!,
+                                    height: 35,
+                                    width: 35,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 5),
@@ -86,12 +92,18 @@ class HomeScreen extends StatelessWidget {
                         title: Text(user['name']!),
                         content: Column(
                           children: [
-                            ClipOval(
-                              child: Image.asset(
-                                user['image']!,
-                                height: 70,
-                                width: 70,
-                                fit: BoxFit.cover,
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blue, width: 2),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  user['image']!,
+                                  height: 70,
+                                  width: 70,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             SizedBox(height: 10),
@@ -119,12 +131,18 @@ class HomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
                     children: [
-                      ClipOval(
-                        child: Image.asset(
-                          user['image']!,
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.blue, width: 2),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            user['image']!,
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       SizedBox(width: 10),
