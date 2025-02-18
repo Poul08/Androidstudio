@@ -1,89 +1,144 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   runApp(
-
-      CupertinoApp(
-        debugShowCheckedModeBanner: false,
-        home: MyApp(),)
+    CupertinoApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  TextEditingController _num1 = TextEditingController();
-  TextEditingController _num2 = TextEditingController();
-  String ans = "";
+class HomeScreen extends StatelessWidget {
+  final List<Map<String, String>> users = [
+    {'name': 'Poul', 'image': 'images/poul.jpg', 'email': 'pouljustinmaninang@gmail.com', 'birthday': 'May 8, 2001', 'contact': '123-456-7890', 'address': 'San luis Pampanga.', 'age': '23'},
+    {'name': 'Nick', 'image': 'images/nick.jpg', 'email': 'nickrghedelacruz@gmail.com', 'birthday': 'June 20, 1990', 'contact': '234-567-8901', 'address': 'Candaba, Pampanga', 'age': '34'},
+    {'name': 'Irish', 'image': 'images/person2.jpg', 'email': 'irishjaneeemagat@gmail.com', 'birthday': 'July 7, 1998', 'contact': '345-678-9012', 'address': 'Candaba, Pampanga', 'age': '26'},
+    {'name': 'Janella', 'image': 'images/person1.jpg', 'email': 'janellapangilinan@gmail.com', 'birthday': 'May 27, 1995', 'contact': '456-789-0123', 'address': 'Candaba, Pampanga', 'age': '29'},
+    {'name': 'Aira', 'image': 'images/person3.jpg', 'email': 'airamaemagat@gmail.com', 'birthday': 'March 4, 1995', 'contact': '567-890-1234', 'address': 'Candaba, Pampanga', 'age': '29'},
+  ];
 
   @override
   Widget build(BuildContext context) {
-
     return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-            middle: Text('Calculator'),
-            trailing: CupertinoButton(child: Icon(CupertinoIcons.settings, size: 20,), onPressed: (){
-
-              showCupertinoDialog(context: context, builder: (context){
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Home'),
+        trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: Icon(CupertinoIcons.group, size: 24),
+          onPressed: () {
+            showCupertinoDialog(
+              context: context,
+              builder: (context) {
                 return CupertinoAlertDialog(
                   title: Text('List of Members'),
-                  content: Column(
-                    children: [
-                      ClipOval(child: Image.asset('images/poul.jpg', height: 50,)),
-                      Text('Poul Justin Maninang'),
-                      ClipOval(child: Image.asset('images/poul.jpg', height: 50,)),
-                      Text('Nick Dela Cruz')
-                    ],
+                  content: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: users.map((user) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Column(
+                            children: [
+                              ClipOval(
+                                child: Image.asset(
+                                  user['image']!,
+                                  height: 35,
+                                  width: 35,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Text(user['name']!, style: TextStyle(fontSize: 12)),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   actions: [
-                    CupertinoButton(child: Text('Close', style: TextStyle(color: CupertinoColors.destructiveRed ),), onPressed: (){
-                      Navigator.pop(context);
-                    })
+                    CupertinoButton(
+                      child: Text('Close', style: TextStyle(color: CupertinoColors.destructiveRed)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ],
                 );
-              });
-
-
-            })
+              },
+            );
+          },
         ),
-
-
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                SizedBox(height: 100,),
-                SizedBox(height: 40,),
-                CupertinoTextField(
-                  controller: _num1,
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: users.map((user) {
+              return GestureDetector(
+                onTap: () {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) {
+                      return CupertinoAlertDialog(
+                        title: Text(user['name']!),
+                        content: Column(
+                          children: [
+                            ClipOval(
+                              child: Image.asset(
+                                user['image']!,
+                                height: 70,
+                                width: 70,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text('Email: ${user['email']}'),
+                            Text('Birthday: ${user['birthday']}'),
+                            Text('Age: ${user['age']}'),
+                            Text('Contact: ${user['contact']}'),
+                            Text('Address: ${user['address']}'),
+                          ],
+                        ),
+                        actions: [
+                          CupertinoButton(
+                            child: Text('Close',
+                                style: TextStyle(color: CupertinoColors.destructiveRed)),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          user['image']!,
+                          height: 50,
+                          width: 50,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text(user['name']!, style: TextStyle(fontSize: 16)),
+                      SizedBox(width: 10),
+                      Text(user['email']!, style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 10,),
-                CupertinoTextField(
-                  controller: _num2,
-                ),
-                CupertinoButton(child: Text('Calculate'), onPressed: (){
-                  setState(() {
-                    double n1 = double.parse(_num1.text);
-                    double n2 = double.parse(_num2.text);
-                    double answer = n1 + n2;
-                    ans = answer.toString();
-                    print(ans);
-                  });
-
-
-                }),
-
-                Text("$ans"),
-
-              ],
-            ),
+              );
+            }).toList(),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
